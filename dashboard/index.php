@@ -35,7 +35,6 @@
 	<?php Application::include_footer(); ?>
 
   <script>
-
     $(function () {
       $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
         $('#highstocks-container').highcharts('StockChart', {

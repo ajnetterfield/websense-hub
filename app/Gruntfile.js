@@ -9,12 +9,10 @@ module.exports = function(grunt) {
   var jsFileList = [
     'assets/vendor/jquery/dist/jquery.js',
     'assets/vendor/underscore/underscore.js',
-    'assets/vendor/backbone/backbone.js',
     'assets/vendor/bootstrap/dist/js/bootstrap.js',
     'assets/vendor/moment/moment.js',
     'assets/vendor/moment-timezone/moment-timezone.js',
-    'assets/js/plugins/*.js',
-    'assets/js/application/*.js'
+    'assets/vendor/highstock/highstock.js'
   ];
 
   grunt.initConfig({
