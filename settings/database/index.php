@@ -55,18 +55,18 @@
               if ($query != "") {
                 switch ($type) {
                   case "query":
-                    print_r($database->query($query));
+                    print_r($db->query($query));
                     break;
 
                   case "command":
-                    print_r($database->command($query));
+                    print_r($db->command($query));
                     break;
 
                   default:
                     break;
                 }
               } else {
-                // print_r($database->create(11, array("name" => "Qwerty")));
+                // print_r($db->create(11, array("name" => "Qwerty")));
               }
             ?>
           </div>

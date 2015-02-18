@@ -4,12 +4,21 @@
 
 	date_default_timezone_set('Australia/Perth');
 
-  /* Classes */
-  require_once 'classes/Application.php';
+  /* Database */
   require_once 'classes/Database.php';
+  $db = new Database();
+
+  /* General Classes */
+  require_once 'classes/Application.php';
   require_once 'classes/Date.php';
   require_once 'classes/Import.php';
+
+  /* Application Specific Classes */
+  require_once 'classes/ORM.php';
+  require_once 'classes/Sensor.php';
+  require_once 'classes/Location.php';
   require_once 'classes/User.php';
+  require_once 'classes/Query.php';
 
   /* Initialise Environment */
   Application::init_messages();

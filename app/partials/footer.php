@@ -11,6 +11,8 @@
   <script src="/app/assets/vendor/moment-timezone/moment-timezone.js"></script>
   <script src="/app/assets/vendor/highstock/highstock.js"></script>
 
+  <script src="/app/assets/js/sensor.js"></script>
+
 <?php elseif (GRUNT_ENV == 'production'): ?>
   <script src="<?php echo Application::assets_dir() . 'js/scripts.min.js'; ?>"></script>
 <?php endif; ?>

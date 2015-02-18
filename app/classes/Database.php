@@ -4,6 +4,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/app/vendor/PhpOrient/vendor/autoload.
 use PhpOrient\PhpOrient;
 use PhpOrient\Protocols\Binary\Data\ID;
 use PhpOrient\Protocols\Binary\Data\Record;
+use PhpOrient\Protocols\Common\ClusterMap;
 
 /*
  * Database connection and functions.
@@ -25,6 +26,8 @@ class Database {
     'port'     => 2424
   );
 
+  private $cluster_map;
+
 	/**************/
 	/* CONTRUCTOR */
 	/**************/
@@ -32,6 +35,15 @@ class Database {
 	public function __construct() {
 		$this->connect();
 	}
+
+  /********************/
+  /* STATIC FUNCTIONS */
+  /********************/
+
+  public static function parse_rid($str) {
+    $rid = new ID($str);
+    return [$rid->cluster, $rid->position];
+  }
 
 	/*********************/
 	/* PRIVATE FUNCTIONS */
@@ -42,24 +54,25 @@ class Database {
     $this->client->configure($this->db_config);
     $this->client->connect();
     if ($this->client->dbExists($this->db_name)) {
-      $this->client->dbOpen($this->db_name);
+      $this->cluster_map = $this->client->dbOpen($this->db_name);
     }
+  }
+
+  private function record_to_id($record) {
+    $rid = $record->getRid();
+    $id = array(
+      'cluster' => $rid->cluster,
+      'position' => $rid->position
+    );
+    return $id;
   }
 
 	/********************/
 	/* PUBLIC FUNCTIONS */
 	/********************/
 
-  public function records_to_hash($records=array()) {
-    $hash = array();
-    if ( ! is_array($records)) $records = array($records);
-    foreach ($records as $record) {
-      $rid = $record->getRid();
-      $cluster = $rid->cluster;
-      $position = $rid->position;
-      $hash["#" . $cluster . ":" . $position] = $record->getOData();
-    }
-    return $hash;
+  public function get_cluster_id($class_name) {
+    return $this->cluster_map->getClusterID(strtolower($class_name));
   }
 
   /* Base Operations
@@ -72,7 +85,7 @@ class Database {
 
   public function query($query) {
     $result = $this->client->query($query);
-    return $this->records_to_hash($result);
+    return $result;
   }
 
   /* CRUD Operations
@@ -81,18 +94,22 @@ class Database {
   public function create($cluster, $attributes=array()) {
     $record = (new Record())->setRid(new ID($cluster))->setOData($attributes);
     $result = $this->client->recordCreate($record);
-    return $this->records_to_hash($result);
+    return $this->record_to_id($result);
   }
 
   public function retrieve($cluster, $position) {
-    $result = $this->client->recordLoad(new ID($cluster, $position))[0];
-    return $this->records_to_hash($result);
+    $result = $this->client->recordLoad(new ID($cluster, $position));
+    if (isset($result[0])) {
+      return $result[0]->getOData();
+    } else {
+      return false;
+    }
   }
 
-  public function update($cluster, $position, $contents=array()) {
+  public function update($cluster, $position, $attributes=array()) {
     $record = (new Record())->setRid(new ID($cluster, $position))->setOData($attributes);
     $result = $this->client->recordUpdate($record);
-    return $this->records_to_hash($result);
+    return $this->record_to_id($result);
   }
 
   public function delete($cluster, $position) {
