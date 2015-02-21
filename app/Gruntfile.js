@@ -7,26 +7,31 @@ module.exports = function(grunt) {
   require('time-grunt')(grunt);
 
   var jsFileList = [
-    'assets/vendor/jquery/dist/jquery.js',
-    'assets/vendor/underscore/underscore.js',
-    'assets/vendor/bootstrap/dist/js/bootstrap.js',
-    'assets/vendor/moment/moment.js',
-    'assets/vendor/moment-timezone/moment-timezone.js',
-    'assets/vendor/highstock/highstock.js'
+    // 'assets/vendor/require/build/require.js',
+    // 'assets/vendor/jquery/dist/jquery.js',
+    // 'assets/vendor/underscore/underscore.js',
+    // 'assets/vendor/backbone/backbone.js',
+    // 'assets/vendor/handlebars/handlebars.js',
+    // 'assets/vendor/react/react.js',
+    // 'assets/vendor/bootstrap/dist/js/bootstrap.js',
+    // 'assets/vendor/moment/moment.js',
+    // 'assets/vendor/moment-timezone/moment-timezone.js',
+    // 'assets/vendor/selectize/handlebars.js',
+    // 'assets/vendor/highstock/highstock.js'
   ];
 
   grunt.initConfig({
-    jshint: {
-      options: {
-        jshintrc: '.jshintrc'
-      },
-      all: [
-        'Gruntfile.js',
-        'assets/js/*.js',
-        '!assets/js/scripts.js',
-        '!assets/**/*.min.*'
-      ]
-    },
+    // jshint: {
+    //   options: {
+    //     jshintrc: '.jshintrc'
+    //   },
+    //   all: [
+    //     'Gruntfile.js',
+    //     'assets/js/*.js',
+    //     '!assets/js/scripts.js',
+    //     '!assets/**/*.min.*'
+    //   ]
+    // },
     less: {
       dev: {
         files: {
@@ -65,22 +70,22 @@ module.exports = function(grunt) {
         src: 'assets/css/main.min.css'
       }
     },
-    concat: {
-      options: {
-        separator: ';',
-      },
-      dist: {
-        src: [jsFileList],
-        dest: 'assets/js/scripts.js',
-      },
-    },
-    uglify: {
-      dist: {
-        files: {
-          'assets/js/scripts.min.js': [jsFileList]
-        }
-      }
-    },
+    // concat: {
+    //   options: {
+    //     separator: ';',
+    //   },
+    //   dist: {
+    //     src: [jsFileList],
+    //     dest: 'assets/js/scripts.js',
+    //   },
+    // },
+    // uglify: {
+    //   dist: {
+    //     files: {
+    //       'assets/js/scripts.min.js': [jsFileList]
+    //     }
+    //   }
+    // },
     watch: {
       less: {
         files: [
@@ -89,13 +94,13 @@ module.exports = function(grunt) {
         ],
         tasks: ['less:dev', 'autoprefixer:dev']
       },
-      js: {
-        files: [
-          jsFileList,
-          '<%= jshint.all %>'
-        ],
-        tasks: ['jshint', 'concat']
-      }
+      // js: {
+      //   files: [
+      //     jsFileList,
+      //     '<%= jshint.all %>'
+      //   ],
+      //   tasks: ['jshint', 'concat']
+      // }
     }
   });
 
@@ -104,15 +109,15 @@ module.exports = function(grunt) {
     'dev'
   ]);
   grunt.registerTask('dev', [
-    'jshint',
+    // 'jshint',
     'less:dev',
     'autoprefixer:dev',
-    'concat'
+    // 'concat'
   ]);
   grunt.registerTask('build', [
-    'jshint',
+    // 'jshint',
     'less:build',
     'autoprefixer:build',
-    'uglify'
+    // 'uglify'
   ]);
 };
