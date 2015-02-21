@@ -5,7 +5,7 @@
  * Author:   Alastair Netterfield
  * Revised: 15/02/2015
  */
-class Location extends ORM {
+class Location extends Object {
 
   /**********************/
   /* INSTANCE VARIABLES */

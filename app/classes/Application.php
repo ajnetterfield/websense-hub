@@ -11,14 +11,12 @@ class Application {
 	/* INSTANCE VARIABLES */
 	/**********************/
 
-	private $database;
-
 	/**************/
 	/* CONTRUCTOR */
 	/**************/
 
-	public function __construct($database) {
-    $this->database = $database;
+	public function __construct() {
+
 	}
 
 	/*********************/
@@ -40,7 +38,7 @@ class Application {
     }
   }
 
-  public static function development_environment($dev) {
+  public static function set_development_environment($dev) {
     if ($dev) {
       define('GRUNT_ENV', 'development');
     } else {
@@ -185,10 +183,6 @@ class Application {
     echo $page_name . " WebSense Hub";
   }
 
-  /********************/
-  /* PUBLIC FUNCTIONS */
-  /********************/
-
   /*
    * Adds an error message to the session message queue.
    */
@@ -307,47 +301,23 @@ class Application {
   }
 
 	/*
-	 * Create an option to be inserted into select statements.
-	 * $val: The value of the option.
-	 * $str: The string to be displayed on the option.
-	 * $selected: Whether or not the option is selected by default.
-	 */
-	public static function format_option($val, $str, $selected=false) {
-		return ($selected) ? "<option value='$val' selected='selected'>$str</option>" : "<option value='$val'>$str</option>";
-	}
-
-	/*
-	 * Format a number as currency with dollar sign 2 decimal places.
-	 * $val: The number to be formatted.
-	 */
-	public static function format_currency($val) {
-		return (is_numeric($val)) ? "$".number_format($val, 2, '.', ',') : false;
-	}
-
-	/*
 	 * Remove multiple line breaks from a string.
 	 */
 	public static function trim_line_breaks($str) {
 		return preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', "\n\n", $str);
 	}
 
-  /*
-   * Remove potentially dangerous characters from queries.
-   */
+  /* Remove potentially dangerous characters from queries. */
   public static function sanitize_html($str) {
     return htmlspecialchars($str, ENT_QUOTES);
   }
 
-	/*
-	 * Remove potentially dangerous characters from numbers.
-	 */
+	/* Remove potentially dangerous characters from numbers. */
 	public static function sanitize_number($str) {
 		return filter_var($str, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	}
 	
-	/*
-	 * Remove potentially dangerous characters from a block of text.
-	 */
+	/* Remove potentially dangerous characters from a block of text. */
 	public static function sanitize_text($str) {
 		$str = preg_replace('/[\"\'\xC2\xA0]+/','',$str);
 		$str = stripslashes($str);
@@ -355,16 +325,12 @@ class Application {
 		return $str;
 	}
 
-	/*
-	 * Get the date of the first day in the specified month.
-	 */
+	/* Get the date of the first day in the specified month. */
 	public static function first_day_of_month($date) {
 		return date("Y-m-01", strtotime($date));
 	}
 
-	/*
-	 * Get the date of the last day in the specified month.
-	 */
+	/* Get the date of the last day in the specified month. */
 	public static function last_day_of_month($date) {
 		return date("Y-m-t", strtotime($date));
 	}

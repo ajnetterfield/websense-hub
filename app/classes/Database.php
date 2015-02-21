@@ -36,15 +36,6 @@ class Database {
 		$this->connect();
 	}
 
-  /********************/
-  /* STATIC FUNCTIONS */
-  /********************/
-
-  public static function parse_rid($str) {
-    $rid = new ID($str);
-    return [$rid->cluster, $rid->position];
-  }
-
 	/*********************/
 	/* PRIVATE FUNCTIONS */
 	/*********************/
@@ -58,7 +49,20 @@ class Database {
     }
   }
 
-  private function record_to_id($record) {
+  /********************/
+  /* STATIC FUNCTIONS */
+  /********************/
+
+  public static function parse_rid($str) {
+    $rid = new ID($str);
+    return [$rid->cluster, $rid->position];
+  }
+
+	/********************/
+	/* PUBLIC FUNCTIONS */
+	/********************/
+
+  public function get_rid($record) {
     $rid = $record->getRid();
     $id = array(
       'cluster' => $rid->cluster,
@@ -67,54 +71,16 @@ class Database {
     return $id;
   }
 
-	/********************/
-	/* PUBLIC FUNCTIONS */
-	/********************/
-
   public function get_cluster_id($class_name) {
     return $this->cluster_map->getClusterID(strtolower($class_name));
   }
 
-  /* Base Operations
-  /****************************************************************************/
-
   public function command($command) {
-    $result = $this->client->command($command);
-    return $result;
+    return $this->client->command($command);
   }
 
   public function query($query) {
-    $result = $this->client->query($query);
-    return $result;
-  }
-
-  /* CRUD Operations
-  /****************************************************************************/
-
-  public function create($cluster, $attributes=array()) {
-    $record = (new Record())->setRid(new ID($cluster))->setOData($attributes);
-    $result = $this->client->recordCreate($record);
-    return $this->record_to_id($result);
-  }
-
-  public function retrieve($cluster, $position) {
-    $result = $this->client->recordLoad(new ID($cluster, $position));
-    if (isset($result[0])) {
-      return $result[0]->getOData();
-    } else {
-      return false;
-    }
-  }
-
-  public function update($cluster, $position, $attributes=array()) {
-    $record = (new Record())->setRid(new ID($cluster, $position))->setOData($attributes);
-    $result = $this->client->recordUpdate($record);
-    return $this->record_to_id($result);
-  }
-
-  public function delete($cluster, $position) {
-    $deleted = $this->client->recordDelete(new ID($cluster, $position));
-    return $deleted;
+    return $this->client->query($query);
   }
 
 }

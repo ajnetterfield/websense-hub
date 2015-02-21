@@ -34,19 +34,16 @@
 
         // // CREATE
         // $sensor = new Sensor();
-        // $sensor->init(null, 'AJ Sensor', 'SENSOR-12345', array('metric' => 'celcius'));
-        // $sensor->save();
+        // $sensor->init(null, 'AJ Sensor', 'SENSOR-12345', array('metric' => 'celcius'))->save();
 
         // // UPDATE
         // $sensor = new Sensor();
-        // $sensor->init(null, 'AJ Sensor', 'SENSOR-12345', array('metric' => 'celcius'));
-        // $sensor->save();
+        // $sensor->init(1, 'AJ Sensor', 'SENSOR-12345', array('metric' => 'celcius'))->save();
 
         // //DELETE
         // $sensor = new Sensor();
         // $sensor->load(8);
         // $sensor->destroy();
-
 
         // LOAD
         // $sensor = new Sensor();
@@ -57,7 +54,6 @@
         // $attributes['metric'] = "Celcius";
         // $sensor->set_attributes($attributes);
         // $sensor->save();
-
 
         // SAVE
         // $attributes = array(
@@ -81,21 +77,49 @@
         //   echo "<h2>$rid : $name : $sensor_id</h2>";
         // }
 
-        $query = new Query();
+        // $sensor = new Sensor();
+        // $query = $sensor->query()->
+        //   ->select(['title', 'sensor_id', 'location.title', 'location.@rid'])
+        //   ->where([
+        //     '@rid' => '#12:0',
+        //     'title' => 'HOBO Sensor 1', 
+        //     'sensor_id' => '123456789'
+        //   ])
+        //   ->order(['title']);
+        // echo($query->get_statement());
+        // print_r($query->execute()->get_results());
 
-        $query->select(['title', 'sensor_id', 'location.title', 'location.@rid'])
-              ->from(['Sensor'])
-              ->where([
-                '@rid' => '#12:0',
-                'title' => 'HOBO Sensor 1', 
-                'sensor_id' => '123456789'
-              ])
-              ->order(['title']);
+        // $query = new Query();
+        // $query->select(['title', 'sensor_id', 'location.title', 'location.@rid'])
+        //   ->from(['Sensor'])
+        //   ->where([
+        //     '@rid' => '#12:0',
+        //     'title' => 'HOBO Sensor 1', 
+        //     'sensor_id' => '123456789'
+        //   ])
+        //   ->order(['title']);
 
-        echo ($query->to_s());
-        // print_r($query->execute()->to_a());
+        // echo ($query->get_statement());
+        // print_r($query->execute()->get_results());
 
+        $attributes = ['@rid', 'title', 'location.title', 'metric'];
+        $results = Sensor::query()->select($attributes)->execute()->get_results();
+        $sensors = Sensor::parse_results($results);
+        foreach ($sensors as $sensor) {
+          $rows[] = Format::tr($sensor->get_rid(), $attributes, $sensor->get_attributes());
+        }
       ?>
+
+      <select class="form-control" name="test-select">
+        <?php echo $sensor->get_options(['location.@rid' => '#14:2']); ?>
+      </select>
+
+      <table class="table table-striped">
+        <?php echo Format::thead($attributes); ?>
+        <tbody>
+          <?php echo implode('', $rows); ?>
+        </tbody>
+      </table>
 
     </div>
 

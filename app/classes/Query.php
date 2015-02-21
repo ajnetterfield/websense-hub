@@ -14,19 +14,21 @@ class Query {
   private $attributes;
   private $classes;
   private $conditions;
-  private $results;
   private $order_attributes;
+  private $max_results;
+  private $results;
 
   /**************/
   /* CONTRUCTOR */
   /**************/
 
-  public function __construct() {
+  public function __construct($class_name) {
     $this->attributes = [];
-    $this->classes = [];
+    $this->classes = [$class_name];
     $this->conditions = [];
-    $this->results = [];
     $this->order_attributes = [];
+    $this->max_results = -1;
+    $this->results = [];
   }
 
   /*********************/
@@ -36,8 +38,7 @@ class Query {
   private function aliase($attributes) {
     $aliased_attributes = [];
     foreach($attributes as $attribute) {
-      $as = preg_replace('/[.\s]+/', '_', $attribute);
-      $as = preg_replace('/[@()]+/', '', $as);
+      $as = Cast::to_sym($attribute);
       if (substr($attribute, -4) == '@rid'){
         $attribute .= '.asString()';
       }
@@ -50,64 +51,87 @@ class Query {
   /* PUBLIC FUNCTIONS */
   /********************/
 
-  /* Chainable Methods */
+  /* Pre-Query */
 
   public function select($attributes) {
-    $this->attributes = array_unique(array_merge($this->attributes, $this->aliase($attributes)));
+    $this->attributes = $this->aliase(Cast::to_a($attributes));
     return $this;
   }
 
   public function from($classes) {
-    $this->classes = array_unique(array_merge($this->classes, $classes));
+    $this->classes = Cast::to_a($classes);
     return $this;
   }
 
   public function where($conditions) {
-    $this->conditions = array_unique(array_merge($this->conditions, $conditions));
+    $this->conditions = Cast::to_a($conditions);
     return $this;
   }
 
   public function order($order_attributes) {
-    $this->order_attributes = array_unique(array_merge($this->order_attributes, $order_attributes));
+    $this->order_attributes = Cast::to_a($order_attributes);
     return $this;
+  }
+
+  public function limit($max_results) {
+    $this->max_results = Cast::to_i($max_results, -1);
+    return $this;
+  }
+
+  /* Query */
+
+  public function get_statement() {
+
+    /* Select */
+    $select = empty($this->attributes) ? '@rid, *' : implode(', ', $this->attributes);
+
+    /* From */
+    $from = implode(', ', $this->classes);
+
+    /* Where */
+    $conditions = [];
+    foreach ($this->conditions as $attribute => $value) {
+      $conditions[] = $attribute . " = '" . $value . "'";
+    }
+    $where = implode(' AND ', $conditions);
+
+    /* Order */
+    $order = implode(', ', $this->order_attributes);
+
+    /* Limit */
+    $limit = $this->max_results;
+
+    /* Query */
+    $pieces = ['SELECT', $select, 'FROM', $from];
+    if ( ! empty($where)) array_push($pieces, 'WHERE', $where);
+    if ( ! empty($order)) array_push($pieces, 'ORDER BY', $order);
+    if (isset($limit)) array_push($pieces, 'LIMIT', $limit);
+
+    return implode(' ', $pieces);
   }
 
   public function execute() {
     global $db;
     if ($db) {
-      $this->results = $db->query($this->to_s());
+      $this->results = $db->query($this->get_statement());
     } else {
       $this->results = [];
     }
     return $this;
   }
 
-  /* Termination Methods */
+  /* Post Query */
 
-  public function to_s() {
-    $merged_conditions = [];
-    foreach ($this->conditions as $attribute => $value) {
-      $merged_conditions[] = $attribute . " = '" . $value . "'";
-    }
-    $pieces = array(
-      "SELECT",
-      implode(', ', $this->attributes),
-      "FROM",
-      implode(', ', $this->classes),
-      "WHERE",
-      implode(' AND ', $merged_conditions),
-      "ORDER BY",
-      implode(', ', $this->order_attributes)
-    );
-    return implode(' ', $pieces);
-  }
-
-  public function to_a() {
+  public function get_results() {
     $results = [];
     foreach ($this->results as $result) {
       $results[] = $result->getOData();
     }
     return $results;
+  }
+
+  public function count_results() {
+    return count($this->results);
   }
 
 }

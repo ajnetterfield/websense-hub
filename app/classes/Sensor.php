@@ -5,17 +5,13 @@
  * Author:   Alastair Netterfield
  * Revised: 15/02/2015
  */
-class Sensor extends ORM {
+class Sensor extends Object {
 
   /**********************/
   /* INSTANCE VARIABLES */
   /**********************/
 
   protected static $class_name = 'Sensor';
-
-  private $title;
-  private $sensor_id;
-  private $location;
 
   private $created_at;
   private $updated_at;
@@ -25,7 +21,24 @@ class Sensor extends ORM {
   /* CONTRUCTOR */
   /**************/
 
-  public function __construct($position=null, $attributes=array()) {
+  public function __construct($position=-1, $attributes=[]) {
     $this->init($position, $attributes);
+  }
+
+  public static function find($attributes=[], $conditions=[], $classes=[]) {
+    $rows = [];
+    $results = $this->query()->select($attributes)->where($conditions)->execute()->get_results();
+  }
+
+  public static function parse_results($results) {
+    $collection = [];
+    foreach($results as $result) {
+      $attributes = [];
+      foreach($result as $key => $value) {
+        $attributes[$key] = $value;
+      }
+      $collection[] = new self($attributes['rid'], $attributes);
+    }
+    return $collection;
   }
 }
