@@ -6,26 +6,45 @@
 
   <head>
 
-    <?php Application::include_head(); ?>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <link rel="icon" href="/favicon.png" sizes="32x32" />
+    <link rel="apple-touch-icon-precomposed" href="/favicon_lg.png" />
+    <meta name="msapplication-TileImage" content="/favicon_lg.png" />
+
+    <?php if (GRUNT_ENV == 'development'): ?>
+      <link href="<?php echo Application::assets_dir() . 'css/main.css'; ?>" rel="stylesheet">
+    <?php elseif (GRUNT_ENV == 'production'): ?>
+      <link href="<?php echo Application::assets_dir() . 'css/main.min.css'; ?>" rel="stylesheet">
+    <?php endif; ?>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <title><?php Application::print_title(); ?></title>
+
+    <script src="<?php echo Application::assets_dir() . 'js/config.js'; ?>"></script>
+    <script src="<?php echo Application::assets_dir() . 'vendor/requirejs/require.js'; ?>" data-main="<?php echo Application::assets_dir() . 'js/main.js'; ?>"></script>
 
   </head>
 
-  <body class="home">
+  <body>
 
-		<?php Application::include_header(); ?>
+    <div id="react-header"></div>
 
-    <div class="container main" style="text-align: center;">
-      <i class="fa fa-wifi" style="font-size: 300px; color: #fff;"></i>
-      <div style="color: #fff;">
-        <h1 style="font-size: 32px; margin: 0 0 20px 0;">WebSense Hub</h1>
-        <p style="font-size: 18px;">Simple consolidation of sensor data.</p>
-        <div id="react-main"></div>
-      </div>
-    </div>
+    <div id="react-body"></div>
+
+    <div id="react-footer"></div>
 
   </body>
-
-	<script src="app/assets/js/config.js"></script>
-  <script src="app/assets/vendor/requirejs/require.js" data-main="app/assets/js/main.js"></script>
 
 </html>

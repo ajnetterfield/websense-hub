@@ -4,23 +4,20 @@ define(['jquery', 'backbone', 'react', 'exports'], function($, Backbone, React, 
 
   return React.createClass({
     getInitialState: function() {
-      return {secondsElapsed: 0};
-    },
-    tick: function() {
-      this.setState({secondsElapsed: this.state.secondsElapsed + 1});
+      return {};
     },
     componentDidMount: function() {
-      this.interval = setInterval(this.tick, 1000);
+
     },
     componentWillUnmount: function() {
-      clearInterval(this.interval);
+
     },
     render: function() {
       return (
         <div className="main">
           <div className="container">
-            <h1>Sensors</h1>
-            <div>Seconds Elapsed: {this.state.secondsElapsed}</div>
+            <h1>Dashboard</h1>
+            <div id="highstocks-container" className="highstocks-wrapper" style={{height: '500px', minWidth: '310px'}}></div>
           </div>
         </div>
       );

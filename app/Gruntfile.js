@@ -3,8 +3,9 @@
 module.exports = function(grunt) {
 
   require('load-grunt-tasks')(grunt);
-
   require('time-grunt')(grunt);
+
+  grunt.loadNpmTasks('grunt-react');
 
   var jsFileList = [
     // 'assets/vendor/require/build/require.js',
@@ -86,6 +87,15 @@ module.exports = function(grunt) {
     //     }
     //   }
     // },
+    react: {
+      files: {
+        expand: true,
+        cwd: 'assets/js/components',
+        src: ['**/*.jsx'],
+        dest: 'assets/js/components/_compiled',
+        ext: '.js'
+      }
+    },
     watch: {
       less: {
         files: [
@@ -108,10 +118,13 @@ module.exports = function(grunt) {
   grunt.registerTask('default', [
     'dev'
   ]);
+  grunt.registerTask('re', [
+    'react'
+  ]);
   grunt.registerTask('dev', [
     // 'jshint',
     'less:dev',
-    'autoprefixer:dev',
+    // 'autoprefixer:dev',
     // 'concat'
   ]);
   grunt.registerTask('build', [

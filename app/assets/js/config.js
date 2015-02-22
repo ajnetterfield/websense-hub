@@ -1,18 +1,27 @@
 var require = {
-  waitSeconds: 20,
+
+  // Timeout for loading scripts
+  waitSeconds: 15,
 
   paths: {
-    // Libs
-    jquery: '../vendor/jquery/dist/jquery',
 
-    'router': 'router',
+    // Libraries
+    jquery: '../vendor/jquery/dist/jquery',
+    'bootstrap': '../vendor/bootstrap/dist/js/bootstrap',
+    'react': '../vendor/react/react',
     'backbone': '../vendor/backbone/backbone',
     'underscore': '../vendor/underscore/underscore',
-    'react': '../vendor/react/react',
-    'main': 'main',
+    'highstock': '../vendor/highstock/highstock',
 
-     // REACT COMPONENTS
-    'components/sensors/index': 'components/_compiled/sensors/index'
+    // Backbone
+    'main': 'main',
+    'router': 'router',
+
+    // React Components
+    'components/common/navbar': 'components/_compiled/common/navbar',
+    'components/home/index': 'components/_compiled/home/index',
+    'components/sensors/index': 'components/_compiled/sensors/index',
+    'components/dashboard/index': 'components/_compiled/dashboard/index',
   },
   map: {
 
