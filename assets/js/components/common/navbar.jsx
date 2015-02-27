@@ -17,7 +17,7 @@ define(['jquery', 'backbone', 'react', 'exports'], function($, Backbone, React, 
         <div className="navbar navbar-default navbar-fixed-top" role="navigation">
           <div className="container">
             <div className="navbar-header">
-              <button type="button" className="navbar-toggle collapsed" dataToggle="collapse" dataTarget=".navbar-collapse">
+              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
                 <span className="sr-only">Toggle navigation</span>
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
@@ -32,7 +32,7 @@ define(['jquery', 'backbone', 'react', 'exports'], function($, Backbone, React, 
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 <li className="dropdown">
-                  <a href="#" className="dropdown-toggle" dataToggle="dropdown">
+                  <a href="#" className="dropdown-toggle" data-toggle="dropdown">
                     <i className="fa fa-cogs"></i> Settings <span className="caret"></span>
                   </a>
                   <ul className="dropdown-menu" role="menu">

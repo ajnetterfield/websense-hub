@@ -24,9 +24,13 @@ var require = {
     'components/dashboard/index': 'components/_compiled/dashboard/index',
   },
   map: {
-
+    'bootstrap': {
+      'jquery': 'jquery'
+    }
   },
   shim: {
-    'bootstrap' : { 'deps' :['jquery'] }
+    'bootstrap': {
+      deps: ['jquery']
+    }
   }
 };

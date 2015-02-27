@@ -16,7 +16,14 @@ define(['jquery', 'underscore', 'backbone', 'react', 'bootstrap', 'highstock',
       routes: {
         'dashboard' : 'dashboard',
         'sensors' : 'sensors',
-        '' : 'home'
+        'locations' : 'locations',
+        '' : 'home',
+        '*splat' : 'page_not_found'
+      },
+      page_not_found: function() {
+        console.log('Initialising Page Not Found');
+        React.render(React.createElement(Navbar, null), $('#react-header')[0]);
+        React.render(React.createElement(Home, null), $('#react-body')[0]);
       },
       home: function() {
         console.log('Initialising Home');
@@ -67,16 +74,15 @@ define(['jquery', 'underscore', 'backbone', 'react', 'bootstrap', 'highstock',
         React.render(React.createElement(Navbar, null), $('#react-header')[0]);
         React.render(React.createElement(Sensors, null), $('#react-body')[0]);
       },
+      locations: function() {
+        console.log('Initialising Locations');
+        React.render(React.createElement(Navbar, null), $('#react-header')[0]);
+        React.render(React.createElement(Sensors, null), $('#react-body')[0]);
+      },
     });
     var router = new Router();
 
-    $('.dropdown-toggle').on("click", "", function() {
-      console.log("here");
-      $(this).dropdown('toggle');
-    });
-
     $(document).on("click", "a[href^='/']", function(event) {
-      console.log("Intercepted click on link");
       var href = $(event.currentTarget).attr('href');
       if (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey) {
         event.preventDefault();
