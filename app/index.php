@@ -37,14 +37,6 @@
 
   </head>
 
-  <body>
-
-    <div id="react-header"></div>
-
-    <div id="react-body"></div>
-
-    <div id="react-footer"></div>
-
-  </body>
+  <body></body>
 
 </html>

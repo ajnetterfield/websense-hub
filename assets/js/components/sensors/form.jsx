@@ -1,45 +1,44 @@
 /** @jsx React.DOM */
 
-define(['jquery', 'backbone', 'react', 'exports'], function($, Backbone, React, exports) {
+define(['jquery', 'backbone', 'react'], function($, Backbone, React) {
 
   return React.createClass({
     getInitialState: function() {
-      return {};
+      return {
+        title: '',
+        sensor_id: '',
+        location: ''
+      };
     },
-    componentDidMount: function() {
-
+    handleChangeTitle: function(e) {
+      this.setState({title: e.target.value});
     },
-    componentWillUnmount: function() {
-
+    handleChangeSensorId: function(e) {
+      this.setState({sensor_id: e.target.value});
+    },
+    handleChangeLocation: function(e) {
+      this.setState({location: e.target.value});
+    },
+    handleSubmit: function(e) {
+      e.preventDefault();
+      this.props.handleUpdate({rid: this.state.sensor_id, title: this.state.title, sensor_id: this.state.sensor_id, location: this.state.location});
+      this.setState({title: '', sensor_id: '', location: ''});
+      $('#sensor_modal').modal('hide');
     },
     render: function() {
       return (
-        <div className="modal fade" id="sensor_modal" tabindex={-1} role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 className="modal-title" id="myModalLabel">Sensor</h4>
-              </div>
-              <div className="modal-body">
-                <label htmlFor="name">Name</label>
-                <input id="name" name="name" type="text" className="form-control" defaultValue placeholder="e.g. Bedroom 1 in-wall sensor" required autofocus />
-                <label htmlFor="id">ID</label>
-                <input id="id" name="id" type="text" className="form-control" defaultValue placeholder="e.g. HOBO-174839454" required />
-                <label htmlFor="location">Location</label>
-                <select id="location" name="location" className="form-control" required>
-                  <option value />
-                  <option value>Kalgoorlie</option>
-                  <option value>Perth</option>
-                </select>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-success">Save Changes</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <form id="sensor_form">
+          <label htmlFor="title">Name</label>
+          <input id="title" name="title" type="text" className="form-control" value={this.state.title} onChange={this.handleChangeTitle} placeholder={"e.g. Bedroom 1 in-wall sensor"} required autofocus />
+          <label htmlFor="id">Sensor ID</label>
+          <input id="sensor_id" name="sensor_id" type="text" className="form-control" value={this.state.sensor_id} onChange={this.handleChangeSensorId} placeholder={"e.g. HOBO-174839454"} required />
+          <label htmlFor="location">Location</label>
+          <select id="location" name="location" className="form-control" value={this.state.location} onChange={this.handleChangeLocation} required>
+            <option value />
+            <option value>Kalgoorlie</option>
+            <option value>Perth</option>
+          </select>
+        </form>
       );
     }
   });

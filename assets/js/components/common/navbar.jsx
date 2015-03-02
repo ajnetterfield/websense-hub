@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-define(['jquery', 'backbone', 'react', 'exports'], function($, Backbone, React, exports) {
+define(['jquery', 'backbone', 'react'], function($, Backbone, React) {
 
   return React.createClass({
     getInitialState: function() {

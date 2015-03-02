@@ -1,33 +1,45 @@
 html,
-body,
-#react-body { height: 100%; background-color: #fff; }
+body {
+  height: 100%; position: relative; background-color: #fff;
+}
 
-/********/
-/* MAIN */
-/********/
+/* HEADINGS
+/******************************************************************************/
+
+h1 { margin: 20px 0; }
+
+/* MAIN
+/******************************************************************************/
+
+.react-main {
+  height: 100%; position: relative;
+}
 
 .main {
-  position: relative; top: 50px;
+  position: relative; padding: 90px 0 30px 0;
 }
 
-.main.home { 
-  background-color: @brand-primary; top: 0; padding: 90px 0 0 0; height: 100%;
+.home { 
+  background-color: @brand-primary;
 }
 
-/**********/
-/* NAVBAR */
-/**********/
+.cover-wrapper {
+  height: 100%;
+}
 
-.navbar { 
-  margin-bottom: 0;
-  .navbar-brand {
-    font-size: 20px;
+.cover {
+  display: table; height: 100%; width: 100%;
+  .cover-inner {
+    display: table-cell; text-align: center; vertical-align: middle;
   }
 }
 
-/**********/
-/* HEADER */
-/**********/
+/* HEADER
+/******************************************************************************/
+
+.react-nav {
+  height: 0;
+}
 
 .header {
   position: relative; top: 50px; padding: 10px; width: 100%; height: 50px;
@@ -43,30 +55,32 @@ body,
   }
 }
 
-/********/
-/* MAIN */
-/********/
+.navbar { 
+  margin-bottom: 0;
+  .navbar-brand {
+    font-size: 20px;
+  }
+}
 
-.main { position: relative; padding: 30px 15px; }
+/* FOOTER
+/******************************************************************************/
 
-/**********/
-/* FOOTER */
-/**********/
+.react-alert {
+  position: fixed; bottom: 0; right:0; left:0; top: auto; margin: 0; z-index: 1000;
+  .alert {
+    border-radius: 0; border: 0; text-align: center;
+  }
+}
 
-.messages { position: fixed; bottom: 0; right:0; left:0; top: auto; margin: 0; 
-  z-index: 1000; }
+/* FORMS
+/******************************************************************************/
 
-.messages .alert { border-radius: 0; border: 0; text-align: center; }
+.form-control {
+  margin-bottom: 15px;
+}
 
-/*********/
-/* FORMS */
-/*********/
-
-.form-control { margin-bottom: 15px; }
-
-/**********/
-/* TABLES */
-/**********/
+/* TABLES
+/******************************************************************************/
 
 .table {
   .btn-sm {
@@ -75,12 +89,58 @@ body,
   td {
     max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  &> tbody > tr > td { vertical-align: middle; }
+  td.row-actions {
+    text-align: right;
+    .btn {
+      padding: 4px 12px;
+    }
+    .btn + .btn {
+      margin-left: 5px;
+    }
+  }
+  &> thead > tr > th {
+    font-size: 16px;
+  }
+  &> tbody > tr > td {
+    vertical-align: middle;
+  }
 }
 
-/***********/
-/* BUTTONS */
-/***********/
+/* PANELS
+/******************************************************************************/
+
+.panel {
+  .panel-title {
+    margin: 0; font-size: 24px; height: 30px; line-height: 30px;
+  }
+  .panel-actions {
+    float: right;
+    .btn { padding: 4px 12px; }
+  }
+  .panel-table {
+    padding: 0;
+    .table {
+      margin: 0;
+      &> tbody > tr > td:first-child,
+      &> thead > tr > th:first-child {
+        padding-left: 15px;
+      }
+      &> tbody > tr > td:last-child,
+      &> thead > tr > th:last-child {
+        padding-right: 15px;
+      }
+      &> thead > tr > th {
+        border-bottom: 1px solid #dddddd; background: #fcfcfc;
+      }
+    }
+    .panel-table-empty {
+      padding: 15px;
+    }
+  }
+}
+
+/* BUTTONS
+/******************************************************************************/
 
 .btn {
   border-radius: 2px;
@@ -95,4 +155,23 @@ body,
   color: @btn-danger-color;
   background-color: @btn-danger-bg;
   border-color: @btn-danger-border;
+}
+
+.actions.pull-right {
+  .btn + .btn {
+    margin-left: 5px;
+  }
+}
+
+/* REACT COMMON COMPONENTS
+/******************************************************************************/
+
+.loading {
+  text-align: center; padding-top: 10px;
+  .fa {
+    font-size: 50px;
+  }
+  .message {
+    font-size: 24px; margin-top: 10px;
+  }
 }

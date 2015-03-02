@@ -1,24 +1,20 @@
 /** @jsx React.DOM */
 
-define(['jquery', 'backbone', 'react', 'exports'], function($, Backbone, React, exports) {
+define(['jquery', 'backbone', 'react', 'components/common/navbar', 'components/bootstrap/panel', 'components/dashboard/graph'], function($, Backbone, React, Navbar, Panel, Graph) {
 
   return React.createClass({
-    getInitialState: function() {
-      return {};
-    },
-    componentDidMount: function() {
-
-    },
-    componentWillUnmount: function() {
-
-    },
     render: function() {
       return (
-        <div className="main">
-          <div className="container">
-            <h1>Dashboard</h1>
-            <div id="highstocks-container" className="highstocks-wrapper" style={{height: '500px', minWidth: '310px'}}></div>
+        <div className="dashboard-index">
+          <Navbar />
+          <div className="main">
+            <div className="container">
+              <Panel title="Dashboard" table={true}>
+                <Graph />
+              </Panel>
+            </div>
           </div>
+          <div className="react-alert"></div>
         </div>
       );
     }
