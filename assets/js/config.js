@@ -21,17 +21,25 @@ var require = {
     'main': 'main',
     'router': 'router',
 
+    // Models
+    'models/sensor': 'models/sensor',
+
+    // Collections
+    'collections/sensors': 'collections/sensors',
+
     /* React Components
     /**************************************************************************/
 
     // Common
     'components/common/navbar': 'components/_compiled/common/navbar',
     'components/common/loading': 'components/_compiled/common/loading',
-    'components/common/page_not_found': 'components/_compiled/common/page_not_found',
 
     // Bootstrap
     'components/bootstrap/panel': 'components/_compiled/bootstrap/panel',
     'components/bootstrap/modal': 'components/_compiled/bootstrap/modal',
+
+    // Page Not Found
+    'components/page_not_found/index': 'components/_compiled/page_not_found/index',
 
     // Home Page
     'components/home/index': 'components/_compiled/home/index',

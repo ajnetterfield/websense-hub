@@ -1,4 +1,0 @@
-Options +FollowSymLinks
-RewriteEngine On
-RewriteCond %{HTTP_HOST} websensehub.hnsoftwareconsulting.com$ [NC]
-RewriteRule ^(/app/.*)$ http://websensehub.hnsoftwareconsulting.com/app/ [R=301,L]

@@ -1,6 +1,6 @@
 define(['jquery', 'underscore', 'backbone', 'react', 'bootstrap', 'highstock',
     'components/common/navbar',
-    'components/common/page_not_found',
+    'components/page_not_found/index',
     'components/home/index',
     'components/dashboard/index',
     'components/sensors/index',
@@ -8,7 +8,7 @@ define(['jquery', 'underscore', 'backbone', 'react', 'bootstrap', 'highstock',
   ], 
   function($, Underscore, Backbone, React, Bootstrap, Highstock,
     Navbar,
-    PageNotFound,
+    PageNotFoundIndex,
     HomeIndex,
     DashboardIndex,
     SensorIndex,
@@ -42,7 +42,7 @@ define(['jquery', 'underscore', 'backbone', 'react', 'bootstrap', 'highstock',
       },
       page_not_found: function() {
         console.log('Initialising Page Not Found');
-        React.render(React.createElement(PageNotFound, null), $('body')[0]);
+        React.render(React.createElement(PageNotFoundIndex, null), $('body')[0]);
       },
     });
     var router = new Router();

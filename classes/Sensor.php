@@ -25,9 +25,9 @@ class Sensor extends Object {
     $this->init($position, $attributes);
   }
 
-  public static function find($attributes=[], $conditions=[], $classes=[]) {
-    $rows = [];
-    $results = $this->query()->select($attributes)->where($conditions)->execute()->get_results();
+  public static function find($attributes=[], $conditions=[]) {
+    $results = self::query()->select($attributes)->where($conditions)->execute()->get_results();
+    return $results;
   }
 
   public static function parse_results($results) {

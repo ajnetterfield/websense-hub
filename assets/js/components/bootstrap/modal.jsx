@@ -1,9 +1,14 @@
 /** @jsx React.DOM */
 
-define(['jquery', 'backbone', 'react'],
-  function($, Backbone, React) {
+define(['jquery', 'react'], function($, React) {
 
   return React.createClass({
+    getDefaultProps: function() {
+      return {
+        id: '',
+        title: ''
+      };
+    },
     render: function() {
       return (
         <div className="modal fade" id={this.props.id} tabIndex={-1} role="dialog" aria-labelledby={this.props.id + "_label"} aria-hidden="true">

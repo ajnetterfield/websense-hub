@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-define(['jquery', 'backbone', 'react', 'components/common/navbar'], function($, Backbone, React, Navbar) {
+define(['jquery', 'react', 'components/common/navbar'], function($, React, Navbar) {
 
   return React.createClass({
     render: function() {

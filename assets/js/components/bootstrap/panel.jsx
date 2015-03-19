@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 
-define(['jquery', 'backbone', 'react'],
-  function($, Backbone, React) {
+define(['jquery', 'react'], function($, React) {
 
   return React.createClass({
     getDefaultProps: function() {
