@@ -1,12 +1,11 @@
-define(['jquery', 'underscore', 'backbone', 'react', 'bootstrap', 'highstock',
+define(['jquery', 'underscore', 'backbone', 'react', 'bootstrap', 'highstock', 'moment',
     'components/common/navbar',
     'components/page_not_found/index',
     'components/home/index',
     'components/dashboard/index',
-    'components/sensors/index',
-    'components/locations/index'
+    'components/sensors/index'
   ], 
-  function($, Underscore, Backbone, React, Bootstrap, Highstock,
+  function($, Underscore, Backbone, React, Bootstrap, Highstock, Moment,
     Navbar,
     PageNotFoundIndex,
     HomeIndex,
@@ -21,7 +20,6 @@ define(['jquery', 'underscore', 'backbone', 'react', 'bootstrap', 'highstock',
         '' : 'home',
         'dashboard' : 'dashboard',
         'sensors' : 'sensors',
-        'locations' : 'locations',
         '*splat' : 'page_not_found'
       },
       home: function() {
@@ -35,10 +33,6 @@ define(['jquery', 'underscore', 'backbone', 'react', 'bootstrap', 'highstock',
       sensors: function() {
         console.log('Initialising Sensors');
         React.render(React.createElement(SensorIndex, null), $('body')[0]);
-      },
-      locations: function() {
-        console.log('Initialising Locations');
-        React.render(React.createElement(LocationsIndex, null), $('body')[0]);
       },
       page_not_found: function() {
         console.log('Initialising Page Not Found');

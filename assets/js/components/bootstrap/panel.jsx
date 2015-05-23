@@ -19,9 +19,7 @@ define(['jquery', 'react'], function($, React) {
             </div>
             <h3 className='panel-title'>{this.props.title}</h3>
           </div>
-          <div className={this.props.table ? 'panel-table' : 'panel-body'}>
-            {this.props.children}
-          </div>
+          {this.props.children}
         </div>
       );
     }

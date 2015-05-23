@@ -23,7 +23,7 @@ define(['jquery', 'react'], function($, React) {
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-success">Save Changes</button>
+                <button type="submit" className="btn btn-success" form={this.props.form_id}>Save Changes</button>
               </div>
             </div>
           </div>

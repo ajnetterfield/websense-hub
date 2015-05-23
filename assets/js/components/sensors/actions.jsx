@@ -1,15 +1,15 @@
 /** @jsx React.DOM */
 
-define(['jquery', 'backbone', 'react', 'components/bootstrap/modal', 'components/sensors/form'], function($, Backbone, React, Modal, SensorForm) {
+define(['jquery', 'backbone', 'react'], function($, Backbone, React) {
 
   return React.createClass({
+    handleOpenModal: function() {
+      this.props.handleOpenModal('');
+    },
     render: function() {
       return (
         <div>
-          <button className="btn btn-success" data-toggle="modal" data-target="#sensor_modal">Create</button>
-          <Modal id="sensor_modal" title="Sensors">
-            <SensorForm />
-          </Modal>
+          <button className="btn btn-success" data-toggle="modal" data-target="#sensor_modal" onClick={this.handleOpenModal}>Create</button>
         </div>
       );
     }

@@ -14,6 +14,7 @@ var require = {
     'underscore': 'lib/underscore/underscore',
     'backbone': 'lib/backbone/backbone',
     'highstock': 'lib/highstock/highstock',
+    'moment': 'lib/moment/moment',
 
     /* Backbone
     /**************************************************************************/
@@ -23,9 +24,11 @@ var require = {
 
     // Models
     'models/sensor': 'models/sensor',
+    'models/measurement': 'models/measurement',
 
     // Collections
     'collections/sensors': 'collections/sensors',
+    'collections/measurements': 'collections/measurements',
 
     /* React Components
     /**************************************************************************/
@@ -51,13 +54,12 @@ var require = {
     // Sensors
     'components/sensors/index': 'components/_compiled/sensors/index',
     'components/sensors/list': 'components/_compiled/sensors/list',
+    'components/sensors/list-item': 'components/_compiled/sensors/list-item',
     'components/sensors/form': 'components/_compiled/sensors/form',
     'components/sensors/actions': 'components/_compiled/sensors/actions',
     'components/sensors/table': 'components/_compiled/sensors/table',
     'components/sensors/row': 'components/_compiled/sensors/row',
 
-    // Locations
-    'components/locations/index': 'components/_compiled/locations/index',
   },
   map: {
     'bootstrap': {

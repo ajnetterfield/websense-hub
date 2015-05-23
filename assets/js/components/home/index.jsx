@@ -1,6 +1,9 @@
 /** @jsx React.DOM */
 
-define(['jquery', 'backbone', 'react', 'components/common/navbar', 'models/sensor', 'collections/sensors'], function($, Backbone, React, Navbar) {
+define(['jquery', 'backbone', 'react', 'components/common/navbar',
+    'models/sensor', 'collections/sensors',
+    'models/measurement', 'collections/measurements'
+  ], function($, Backbone, React, Navbar) {
 
   return React.createClass({
     componentDidMount: function() {

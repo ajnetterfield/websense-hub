@@ -29,9 +29,10 @@ define(['jquery', 'backbone', 'models/sensor'], function($, Backbone) {
       }
     },
     urlRoot: '/api/v1/sensors',
+    url: '/api/v1/sensors',
     parse: function(response) {
       console.log("Sensor Collection Parsing Response");
-      return response['payload'];
+      return response["collection"];
     }
   });
 

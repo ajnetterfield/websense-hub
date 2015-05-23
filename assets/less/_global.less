@@ -157,17 +157,28 @@ h1 { margin: 20px 0; }
   border-color: @btn-danger-border;
 }
 
-.actions.pull-right {
+.btn + .btn {
+  margin: 0 5px 0 0;
+}
+
+.pull-right {
   .btn + .btn {
-    margin-left: 5px;
+    margin: 0 0 0 5px;
   }
+}
+
+/* LIST GROUPS
+/******************************************************************************/
+
+.list-group-item {
+  line-height: 30px;
 }
 
 /* REACT COMMON COMPONENTS
 /******************************************************************************/
 
 .loading {
-  text-align: center; padding-top: 10px;
+  text-align: center; padding: 30px 0 20px 0;
   .fa {
     font-size: 50px;
   }

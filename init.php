@@ -4,28 +4,30 @@
 
 	date_default_timezone_set('Australia/Perth');
 
+  /* PHP Vendor Libraries */
+  require_once 'vendor/autoload.php';
+
   /* Database */
-  require_once 'classes/Database.php';
+  require_once 'models/Database.php';
   $db = new Database();
 
-  /* Generic Classes */
-  require_once 'classes/Application.php';
-  require_once 'classes/Cast.php';
-  require_once 'classes/Format.php';
+  /* Helpers */
+  require_once 'models/Application.php';
+  require_once 'models/Cast.php';
+  require_once 'models/Format.php';
 
-  /* Application Specific Classes */
-  require_once 'classes/Object.php';
-  require_once 'classes/Sensor.php';
-  require_once 'classes/Location.php';
-  require_once 'classes/User.php';
-  require_once 'classes/Query.php';
-  require_once 'classes/Import.php';
+  /* Models */
+  require_once 'models/Query.php';
+  require_once 'models/Object.php';
+  require_once 'models/Sensor.php';
+  require_once 'models/Measurement.php';
+  require_once 'models/Location.php';
 
   /* Initialise Environment */
   Application::init_messages();
   Application::set_development_environment(true);
 
-	/* Turn off Browser Caching */
+	/* Turn off Browser Caching for development environment */
 	header("Expires: Sat, 01 Jan 2000 12:00:00 GMT");
 	header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 	header("Cache-Control: no-store, no-cache, must-revalidate");

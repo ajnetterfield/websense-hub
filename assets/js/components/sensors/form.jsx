@@ -7,7 +7,7 @@ define(['jquery', 'backbone', 'react'], function($, Backbone, React) {
       return {
         title: '',
         sensor_id: '',
-        location: ''
+        rid: ''
       };
     },
     handleChangeTitle: function(e) {
@@ -16,28 +16,24 @@ define(['jquery', 'backbone', 'react'], function($, Backbone, React) {
     handleChangeSensorId: function(e) {
       this.setState({sensor_id: e.target.value});
     },
-    handleChangeLocation: function(e) {
-      this.setState({location: e.target.value});
-    },
     handleSubmit: function(e) {
       e.preventDefault();
-      this.props.handleUpdate({rid: this.state.sensor_id, title: this.state.title, sensor_id: this.state.sensor_id, location: this.state.location});
-      this.setState({title: '', sensor_id: '', location: ''});
+      var data = {title: this.state.title, sensor_id: this.state.sensor_id};
+      if (this.state.rid != '') {
+        data.rid = this.state.rid;
+      }
+      this.props.handleSubmit(data);
+      this.setState({title: '', sensor_id: '', rid: ''});
       $('#sensor_modal').modal('hide');
     },
     render: function() {
       return (
-        <form id="sensor_form">
+        <form id={this.props.id} onSubmit={this.handleSubmit}>
           <label htmlFor="title">Name</label>
           <input id="title" name="title" type="text" className="form-control" value={this.state.title} onChange={this.handleChangeTitle} placeholder={"e.g. Bedroom 1 in-wall sensor"} required autofocus />
           <label htmlFor="id">Sensor ID</label>
           <input id="sensor_id" name="sensor_id" type="text" className="form-control" value={this.state.sensor_id} onChange={this.handleChangeSensorId} placeholder={"e.g. HOBO-174839454"} required />
-          <label htmlFor="location">Location</label>
-          <select id="location" name="location" className="form-control" value={this.state.location} onChange={this.handleChangeLocation} required>
-            <option value />
-            <option value>Kalgoorlie</option>
-            <option value>Perth</option>
-          </select>
+          <input id="rid" name="rid" type="hidden" value={this.state.rid} />
         </form>
       );
     }

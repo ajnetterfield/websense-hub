@@ -20,7 +20,6 @@ define(['jquery', 'react'], function($, React) {
               <ul className="nav navbar-nav">
                 <li><a href="/dashboard">Dashboard</a></li>
                 <li><a href="/sensors">Sensors</a></li>
-                <li><a href="/locations">Locations</a></li>
               </ul>
             </div>
           </div>

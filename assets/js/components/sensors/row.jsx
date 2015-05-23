@@ -3,13 +3,6 @@
 define(['jquery', 'backbone', 'react', 'components/bootstrap/modal', 'components/sensors/form'], function($, Backbone, React, Modal, SensorForm) {
 
   return React.createClass({
-    getInitialState: function() {
-      return {
-        title: '',
-        sensor_id: '',
-        location: ''
-      };
-    },
     confirmDelete: function() {
       confirm("Are you sure you want to delete this item?");
     },
